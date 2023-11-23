@@ -4,7 +4,7 @@ Covid 19 Data Exploration
 Skills used: Joins, CTE's, Temp Tables, Windows Functions, Aggregate Functions, Creating Views.
 
 */
----Checking my data if they are properly imported----
+---Checking my data if they are properly imported---
 select *
 from CovidDeaths
 order by 3,4;
