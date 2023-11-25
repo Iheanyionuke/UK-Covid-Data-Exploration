@@ -95,16 +95,20 @@ where
 	order by 2 desc;
 
 ----	Month by month cases as against new deaths----
-Select
-    MONTH(date) AS Month,location,
-    SUM(new_cases) AS total_new_cases, sum(new_deaths) AS monthly_deaths
+SELECT
+    MONTH(date) AS MonthNumber,
+    DATENAME(MONTH, date) AS MonthName,
+    location,
+    SUM(new_cases) AS total_new_cases,
+    SUM(new_deaths) AS monthly_deaths
 FROM
     CovidDeaths
-WHERE location LIKE '%kingdom%'
-    AND YEAR(date) = 2023 -- Specify the desired year
+WHERE
+    location LIKE '%kingdom%'
+    AND date >= '2023-01-01' AND date < '2024-01-01'
 GROUP BY
-    MONTH(date),location
-ORDER BY 1;
+    MONTH(date), DATENAME(MONTH, date), location;
+
 
 
 -------total death count in europe
@@ -165,16 +169,20 @@ from popvsvac;
 -----creating views for data viualizations
 --table 1
 create view Monthly_deaths as
-Select
-    MONTH(date) AS Month,location,
-    SUM(new_cases) AS total_new_cases, sum(new_deaths) AS monthly_deaths
+SELECT
+    MONTH(date) AS MonthNumber,
+    DATENAME(MONTH, date) AS MonthName,
+    location,
+    SUM(new_cases) AS total_new_cases,
+    SUM(new_deaths) AS monthly_deaths
 FROM
     CovidDeaths
-WHERE location LIKE '%kingdom%'
-    AND YEAR(date) = 2023 -- Specify the desired year
+WHERE
+    location LIKE '%kingdom%'
+    AND date >= '2023-01-01' AND date < '2024-01-01'
 GROUP BY
-    MONTH(date),location
---ORDER BY 1;
+    MONTH(date), DATENAME(MONTH, date), location;
+
 
 --Table 2
 create view deathpercentage as
